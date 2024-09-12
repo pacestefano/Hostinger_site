@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body, html {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background-color: #1a1a1a;
+            color: #ffffff;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            background-color: #222222;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-sizing: border-box; /* Aggiunto per includere il padding nella larghezza */
+        }
+        .login-icon {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 14px;
+            display: flex;
+            flex-direction: column; /* Cambiato da row a column */
+            align-items: center;
+            text-align: center;
+        }
+        .login-icon img, .login-icon i {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-bottom: 5px; /* Cambiato da margin-right a margin-bottom */
+        }
+        .login-icon i {
+            font-size: 42px; /* Ridotto da 60px a 42px (30% in meno) */
+            margin-bottom: 5px;
+        }
+        #loginText {
+            font-size: 12px; /* Ridotto leggermente la dimensione del testo */
+        }
+        .burger-menu {
+            font-size: 24px;
+            cursor: pointer;
+            color: #ffffff;
+            display: block; /* Assicura che il burger menu sia visibile */
+        }
+        .content {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: stretch; /* Cambiato da center a stretch */
+            padding: 80px 0 0; /* Rimosso il padding laterale e inferiore */
+            box-sizing: border-box;
+        }
+        .text-box {
+            background-color: #333333;
+            padding: 20px;
+            width: 100%;
+            max-width: none; /* Rimosso il max-width */
+            border-radius: 0; /* Rimosso il border-radius */
+            box-shadow: none; /* Rimossa l'ombra */
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start; /* Allinea il contenuto in alto */
+            align-items: center;
+            min-height: calc(100vh - 80px); /* Altezza minima pari all'altezza della viewport meno l'altezza dell'header */
+        }
+        .text-box h2 {
+            margin: 0 0 20px 0;
+            font-size: 24px;
+        }
+        .menu-content {
+            display: none;
+            position: fixed;
+            right: 20px;
+            top: 70px;
+            background-color: #333333;
+            min-width: 160px;
+            border-radius: 5px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1001;
+        }
+        .menu-content a {
+            color: #ffffff;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        .menu-content a:hover {
+            background-color: #444444;
+        }
+        .show {
+            display: block;
+        }
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+            width: 100%;
+            max-width: 600px; /* Mantiene i pulsanti a una larghezza massima */
+        }
+        .action-button {
+            width: 100%;
+            max-width: 300px;
+            padding: 15px 0;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px 0;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s, opacity 0.3s;
+            border: none;
+            color: white;
+        }
+        .action-button:hover, .action-button:active {
+            opacity: 0.8;
+        }
+        .instagram-button { background-color: #E1306C; }
+        .prompt-button { background-color: #4CAF50; }
+        .button-3 { background-color: #3498db; }
+
+        @media (max-width: 600px) {
+            .header { 
+                padding: 10px 15px; 
+                justify-content: space-between; /* Assicura la distribuzione dello spazio */
+            }
+            .login-icon { 
+                font-size: 10px; 
+            }
+            .login-icon img, .login-icon i { 
+                width: 25px; 
+                height: 25px; 
+                margin-bottom: 3px; /* Ridotto il margine per schermi più piccoli */
+            }
+            .login-icon i { 
+                font-size: 35px; /* Ridotto da 50px a 35px (30% in meno) */
+                margin-bottom: 3px;
+            }
+            .burger-menu { 
+                font-size: 20px; 
+                margin-left: auto; /* Spinge il burger menu a destra */
+            }
+            .text-box { padding: 15px; }
+            .text-box h2 { font-size: 20px; }
+            .action-button { font-size: 14px; padding: 12px 0; }
+            .content {
+                padding-top: 60px; /* Ridotto il padding superiore per schermi più piccoli */
+            }
+            .text-box {
+                min-height: calc(100vh - 60px); /* Adattato per l'header più piccolo su mobile */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="Register_Login_G/Register_Login.html" class="login-icon" id="loginIcon">
+            <i class="fas fa-user-circle" id="defaultIcon"></i>
+            <img id="userIcon" src="" alt="User Icon" style="display: none;">
+            <span id="loginText">Login/Register</span>
+        </a>
+        <div class="burger-menu" onclick="toggleMenu()">☰</div>
+        <div class="menu-content" id="menuContent">
+            <a href="#">Profilo</a>
+            <a href="Register_Login_G/Register_Login.html">Registrati</a>
+            <a href="Register_Login_G/Register_Login.html">Effettua il Login</a>
+        </div>
+    </div>
+    <div class="content">
+        <div class="text-box">
+            <h2>Home_Page_TEST</h2>
+            <div class="button-container">
+                <button class="action-button instagram-button" onclick="createInstagramPost()">Crea un Post per Instagram con l'AI</button>
+                <button class="action-button prompt-button" onclick="improvePrompt()">Migliora il tuo prompt</button>
+                <a href="Game_Numbers/index.html" class="action-button button-3">Game Numbers</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById("menuContent").classList.toggle("show");
+        }
+
+        // Chiudi il menu se l'utente clicca fuori da esso
+        window.onclick = function(event) {
+            if (!event.target.matches('.burger-menu')) {
+                var dropdowns = document.getElementsByClassName("menu-content");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+
+        // Modifica questa funzione per controllare e aggiornare lo stato di login e l'icona
+        function checkLoginStatus() {
+            const userName = localStorage.getItem('userName');
+            const userPicture = localStorage.getItem('userPicture');
+            const loginText = document.getElementById('loginText');
+            const defaultIcon = document.getElementById('defaultIcon');
+            const userIcon = document.getElementById('userIcon');
+
+            if (userName) {
+                loginText.textContent = userName;
+                if (userPicture) {
+                    defaultIcon.style.display = 'none';
+                    userIcon.src = userPicture;
+                    userIcon.style.display = 'inline-block';
+                }
+            } else {
+                loginText.textContent = 'Login/Register';
+                defaultIcon.style.display = 'inline-block';
+                userIcon.style.display = 'none';
+            }
+        }
+
+        // Chiama la funzione al caricamento della pagina
+        window.onload = function() {
+            checkLoginStatus();
+        };
+
+        function createInstagramPost() {
+            alert("Funzione per creare un post Instagram con l'AI");
+            // Implementa qui la logica per creare un post Instagram
+        }
+
+        function improvePrompt() {
+            alert("Funzione per migliorare il prompt");
+            // Implementa qui la logica per migliorare il prompt
+        }
+
+        // Rimuovi questa funzione poiché non è più necessaria
+        // function button3Action() {
+        //     alert("Azione del Pulsante 3");
+        //     // Implementa qui la logica per il Pulsante 3
+        // }
+    </script>
+</body>
+</html>
